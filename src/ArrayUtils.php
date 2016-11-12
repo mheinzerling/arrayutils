@@ -14,4 +14,17 @@ class ArrayUtils
         return $uniqueSortedKeys;
     }
 
+    /**
+     * @param array $haystack
+     * @param $needle
+     * @return null|string the key
+     */
+    public static function removeFirst(array &$haystack, $needle)// :?string
+    {
+        $key = array_search($needle, $haystack);
+        if ($key === false) return null;
+        unset($haystack[$key]);
+        return $key;
+    }
+
 } 
