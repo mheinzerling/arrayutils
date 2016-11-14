@@ -27,4 +27,26 @@ class ArrayUtils
         return $key;
     }
 
+    public static function flatten(array $array):array
+    {
+        $result = [];
+        foreach ($array as $key => $value) self::flattenRecursive($result, $key, $value);
+        return $result;
+    }
+
+    /**
+     * @param array $result
+     * @param string $key
+     * @param $value
+     * @return void
+     */
+    private static function flattenRecursive(array &$result, string $key, $value)
+    {
+        if (is_array($value)) {
+            foreach ($value as $subkey => $subvalue) self::flattenRecursive($result, $key . "." . $subkey, $subvalue);
+        } else {
+            $result[$key] = $value;
+        }
+    }
+
 } 

@@ -28,5 +28,15 @@ class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
         static::assertEquals($expectedArray, $initial);
     }
 
+    public function testFlatten()
+    {
+        static::assertEquals([], ArrayUtils::flatten([]));
+        static::assertEquals([1, 2, 3], ArrayUtils::flatten([1, 2, 3]));
+        static::assertEquals(["a" => 1, "b" => 2, "c" => 3], ArrayUtils::flatten(["a" => 1, "b" => 2, "c" => 3]));
+        static::assertEquals(['a' => 1, 'b' => 2,
+            'c.a.a' => 1, 'c.a.b' => 2, 'c.a.c' => 3,
+            'c.b' => 2, 'c.c' => 3], ArrayUtils::flatten(["a" => 1, "b" => 2, "c" => ["a" => ["a" => 1, "b" => 2, "c" => 3], "b" => 2, "c" => 3]]));
+    }
+
 }
 
