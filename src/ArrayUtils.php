@@ -49,4 +49,21 @@ class ArrayUtils
         }
     }
 
+    /**
+     * @param array $keys
+     * @param array $data
+     * @return void
+     */
+    public static function fixOrderByKey(array $keys, array &$data)
+    {
+        if (array_keys($data) == $keys) return;
+        if (array_keys($data) == range(0, count($keys) - 1)) return;
+
+        $new = [];
+        foreach ($keys as $key) {
+            $new[$key] = $data[$key];
+        }
+        $data = $new;
+    }
+
 } 

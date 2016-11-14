@@ -38,5 +38,32 @@ class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
             'c.b' => 2, 'c.c' => 3], ArrayUtils::flatten(["a" => 1, "b" => 2, "c" => ["a" => ["a" => 1, "b" => 2, "c" => 3], "b" => 2, "c" => 3]]));
     }
 
+
+    public function testFixOrderByKey()
+    {
+        $data = [];
+        ArrayUtils::fixOrderByKey([], $data);
+        static::assertEquals([], $data);
+        $data = [7, 8, 9];
+        ArrayUtils::fixOrderByKey(["a", "b", "c"], $data);
+        static::assertEquals([7, 8, 9], $data);
+
+        $data = ["a" => 7, "b" => 8, "c" => 9];
+        ArrayUtils::fixOrderByKey(["a", "b", "c"], $data);
+        static::assertEquals(["a" => 7, "b" => 8, "c" => 9], $data);
+
+        $data = ["c" => 9, "a" => 7, "b" => 8];
+        ArrayUtils::fixOrderByKey(["a", "b", "c"], $data);
+        static::assertEquals(["a" => 7, "b" => 8, "c" => 9], $data);
+
+        try {
+            $data = [9, "a" => 7, "b" => 8];
+            ArrayUtils::fixOrderByKey(["a", "b", "c"], $data);
+            static::assertEquals(["a" => 7, "b" => 8, "c" => 9], $data);
+            static::fail("Error expected");
+        } catch (\Throwable $t) {
+            static::assertEquals("Undefined index: c", $t->getMessage());
+        }
+    }
 }
 

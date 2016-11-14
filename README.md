@@ -13,6 +13,7 @@ This is a small library collection array utilities.
     ArrayUtils::mergeAndSortArrayKeys
     ArrayUtils::removeFirst
     ArrayUtils::flatten
+    ArrayUtils::fixOrderByKey
     
 ##Changelog
 
