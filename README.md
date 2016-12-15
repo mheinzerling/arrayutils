@@ -18,4 +18,4 @@ This is a small library collection array utilities.
 ##Changelog
 
 ### 1.0.0
-* initial version 
+* initial version (PHP 7.1)
